@@ -1,0 +1,50 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'sortStringWithLength' function below.
+#
+# The function is expected to return a STRING.
+# The function accepts STRING s as parameter.
+#
+
+def sortStringWithLength(s):
+    count = 0
+    for i in range(len(s)):
+        if s[i] == ' ':
+            if s[i-1] == ' ':
+                count +=1
+    s = s.split()
+    rs = {}
+    countword = {}
+    for i in s:
+        if i not in countword.keys():
+            countword[i] = 1
+        else: 
+            countword[i] += 1            
+    for i in s:
+        rs[i] = len(i)
+    sortedDict = sorted(rs.items(),key=lambda x:x[1])
+    kt = []
+    for i in range(count):
+        kt.append('')
+    for i in sortedDict:
+        for j in range(countword[i[0]]):
+            kt.append(i[0])
+    return kt
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = sortStringWithLength(s)
+
+    fptr.write(' '.join(map(str, result)))
+
+    fptr.close()
